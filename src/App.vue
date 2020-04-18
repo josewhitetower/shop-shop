@@ -17,12 +17,17 @@ export default {
     products: []
   }),
   mounted() {
-    firestore
-      .collection("products")
-      .get()
-      .then(querySnapshots => {
-        this.products = querySnapshots.docs.map(doc => doc.data());
-      });
+    this.getAllProducts();
+  },
+  methods: {
+    getAllProducts() {
+      firestore
+        .collection("products")
+        .get()
+        .then(querySnapshots => {
+          this.products = querySnapshots.docs.map(doc => doc.data());
+        });
+    }
   }
 };
 </script>
