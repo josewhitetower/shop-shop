@@ -1,28 +1,28 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="">
+    <ul>
+      <li v-for="product in products" :key="product.name">
+        {{ product.name }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
+import firestore from "./firestore";
 export default {
   name: "App",
-  components: {
-    HelloWorld
+  components: {},
+  data: () => ({
+    products: []
+  }),
+  mounted() {
+    firestore
+      .collection("products")
+      .get()
+      .then(querySnapshots => {
+        this.products = querySnapshots.docs.map(doc => doc.data());
+      });
   }
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
