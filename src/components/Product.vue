@@ -1,9 +1,9 @@
 <template>
-  <div class="flex">
+  <div class="flex" :class="{'line-through text-gray-500': product.bought}">
     <span @click="$emit('toggleBought')">
       <v-icon :name="isBought" class="h-6 w-6 mr-2 cursor-pointer" />
     </span>
-    <div class="flex-col flex">
+    <div class="flex-col flex" >
         <input type="text" :value="product.name" @change="onChange" name="name" />
         <input type="text" :value="product.description" @change="onChange" name="description" />
     </div>

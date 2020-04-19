@@ -1,7 +1,7 @@
 <template>
-  <div class="container mx-auto">
+  <div class="container mx-auto text-gray-800">
     <ul>
-      <li v-for="product in products" :key="product.id" class="flex mb-4">
+      <li v-for="product in boughtProducts" :key="product.id" class="flex my-4">
         <Product
           :product="product"
           @toggleBought="() => onToggleBought(product.id, product.bought)"
@@ -9,14 +9,25 @@
           @edit="(value) => onEdit(value, product.id)"
         />
       </li>
-      <li v-if="visible">
-        <ProductForm @add="(value) => onAdd(value)" @delete="visible = false"/>
+      <li v-if="visible" class="my-4">
+        <ProductForm @add="(value) => onAdd(value)" @delete="visible = false" />
       </li>
-      <li v-else>
+      <li v-else class="my-4">
         <span class="flex cursor-pointer" @click="visible = true">
           <v-icon name="plus" class="h-6 w-6 mr-2"></v-icon>
           Product
         </span>
+      </li>
+    </ul>
+    <hr class="my-8"/>
+    <ul>
+      <li v-for="product in unboughtProducts" :key="product.id" class="flex mb-4">
+        <Product
+          :product="product"
+          @toggleBought="() => onToggleBought(product.id, product.bought)"
+          @delete="() => onDelete(product.id)"
+          @edit="(value) => onEdit(value, product.id)"
+        />
       </li>
     </ul>
   </div>
@@ -38,6 +49,14 @@ export default {
     description: '',
     visible: false,
   }),
+  computed: {
+    boughtProducts() {
+      return this.products.filter((product) => !product.bought);
+    },
+    unboughtProducts() {
+      return this.products.filter((product) => product.bought);
+    },
+  },
   mounted() {
     this.detectChanges();
   },
