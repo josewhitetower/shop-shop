@@ -7,6 +7,14 @@
       <span>{{ product.name }}</span>
       <span>{{ product.description }}</span>
     </div>
+    <div>
+      <span class="flex">
+        <v-icon name="edit" class="h-6 w-6 mr-2 cursor-pointer" />
+        <span @click="$emit('delete')">
+          <v-icon name="trash" class="h-6 w-6 mr-2 cursor-pointer" />
+        </span>
+      </span>
+    </div>
   </div>
 </template>
 

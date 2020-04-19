@@ -5,6 +5,7 @@
         <Product
           :product="product"
           @toggleBought="() => onToggleBought(product.id, product.bought)"
+          @delete="() => onDelete(product.id)"
         />
       </li>
     </ul>
@@ -69,6 +70,17 @@ export default {
         .update({bought: !bought})
         .then(() => console.log('updated'))
         .catch((err) => console.log(err));
+    },
+    onDelete(id) {
+      const confirmDelete = confirm('Delete?');
+      if (confirmDelete) {
+        firestore
+          .collection('products')
+          .doc(id)
+          .delete()
+          .then(() => console.log('deleted'))
+          .catch((err) => console.log(err));
+      }
     },
   },
 };
