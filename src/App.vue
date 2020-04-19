@@ -1,6 +1,7 @@
 <template>
-  <div class="container mx-auto text-gray-800">
-    <ul>
+  <div class="container mx-auto text-gray-800 flex flex-col items-center my-12">
+    <h1 class="text-2xl mb-4">Shop-Shop</h1>
+    <ul class="">
       <li v-for="product in boughtProducts" :key="product.id" class="flex my-4">
         <Product
           :product="product"
@@ -19,7 +20,7 @@
         </span>
       </li>
     </ul>
-    <hr class="my-8"/>
+    <hr class="my-8 w-full"/>
     <ul>
       <li v-for="product in unboughtProducts" :key="product.id" class="flex mb-4">
         <Product
@@ -46,7 +47,7 @@ export default {
   data: () => ({
     products: [],
     name: '',
-    description: '',
+    amount: '',
     visible: false,
   }),
   computed: {
@@ -65,7 +66,7 @@ export default {
       if (this.name) {
         const product = {
           name: this.name,
-          description: this.description,
+          amount: this.amount,
           bought: false,
         };
         firestore
@@ -73,7 +74,7 @@ export default {
           .add(product)
           .then(() => {
             this.name = '';
-            this.description = '';
+            this.amount = '';
           })
           .catch((error) => console.log(error));
       }

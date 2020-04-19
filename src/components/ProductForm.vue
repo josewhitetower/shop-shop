@@ -4,8 +4,8 @@
       <v-icon :name="isBought" class="h-6 w-6 mr-2 cursor-pointer" />
     </span>
     <div class="flex-col flex">
-      <input type="text" v-model="name" required />
-      <input type="text" v-model="description" />
+      <input type="text" v-model="name" required placeholder="Name" class="focus:outline-none"/>
+      <input type="text" v-model="amount" placeholder="Amount" class="focus:outline-none"/>
     </div>
 
     <span @click="addProduct">
@@ -26,7 +26,7 @@ export default {
   },
   data: () => ({
     name: '',
-    description: '',
+    amount: '',
     bought: false,
   }),
   methods: {
@@ -34,12 +34,12 @@ export default {
       if (this.name) {
         this.$emit('add', {
           name: this.name,
-          description: this.description,
+          amount: this.amount,
           date: new Date(),
           bought: this.bought
         });
         this.name = '';
-        this.description = ''
+        this.amount = ''
       } else {
           alert('Name is required!')
       }
