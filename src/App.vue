@@ -1,8 +1,11 @@
 <template>
-  <div class="">
+  <div class="container mx-auto">
     <ul>
-      <li v-for="product in products" :key="product.id">
-        {{ product.name }}
+      <li v-for="product in products" :key="product.id" class="flex mb-4">
+        <Product
+          :product="product"
+          @toggleBought="() => onToggleBought(product.id, product.bought)"
+        />
       </li>
     </ul>
     <form @submit.prevent="addProduct">
@@ -17,9 +20,12 @@
 
 <script>
 import firestore from './firestore';
+import Product from './components/Product';
 export default {
   name: 'App',
-  components: {},
+  components: {
+    Product,
+  },
   data: () => ({
     products: [],
     name: '',
@@ -39,10 +45,9 @@ export default {
         firestore
           .collection('products')
           .add(product)
-          .then((docRef) => {
+          .then(() => {
             this.name = '';
             this.description = '';
-            console.log(docRef);
           })
           .catch((error) => console.log(error));
       }
@@ -56,6 +61,14 @@ export default {
           };
         });
       });
+    },
+    onToggleBought(id, bought) {
+      firestore
+        .collection('products')
+        .doc(id)
+        .update({bought: !bought})
+        .then(() => console.log('updated'))
+        .catch((err) => console.log(err));
     },
   },
 };
