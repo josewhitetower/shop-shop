@@ -9,29 +9,34 @@
           @edit="(value) => onEdit(value, product.id)"
         />
       </li>
+      <li v-if="visible">
+        <ProductForm @add="(value) => onAdd(value)" @delete="visible = false"/>
+      </li>
+      <li v-else>
+        <span class="flex cursor-pointer" @click="visible = true">
+          <v-icon name="plus" class="h-6 w-6 mr-2"></v-icon>
+          Product
+        </span>
+      </li>
     </ul>
-    <form @submit.prevent="addProduct">
-      <label for="">Name</label>
-      <input type="text" v-model="name" required />
-      <label for="">Description</label>
-      <textarea cols="30" rows="10" v-model="description"></textarea>
-      <button>Add</button>
-    </form>
   </div>
 </template>
 
 <script>
 import firestore from './firestore';
 import Product from './components/Product';
+import ProductForm from './components/ProductForm';
 export default {
   name: 'App',
   components: {
     Product,
+    ProductForm,
   },
   data: () => ({
     products: [],
     name: '',
     description: '',
+    visible: false,
   }),
   mounted() {
     this.detectChanges();
@@ -89,6 +94,14 @@ export default {
         .doc(id)
         .update(value)
         .then(() => console.log('edited'))
+        .catch((err) => console.log(err));
+    },
+    onAdd(value) {
+      this.visible = false;
+      firestore
+        .collection('products')
+        .add(value)
+        .then(() => console.log('added'))
         .catch((err) => console.log(err));
     },
   },

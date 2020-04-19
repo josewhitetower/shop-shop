@@ -22,7 +22,6 @@ export default {
     }
   },
   data: () => ({
-      editable: false,
       name: '',
       description: ''
   }),
