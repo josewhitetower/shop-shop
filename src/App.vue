@@ -6,6 +6,7 @@
           :product="product"
           @toggleBought="() => onToggleBought(product.id, product.bought)"
           @delete="() => onDelete(product.id)"
+          @edit="(value) => onEdit(value, product.id)"
         />
       </li>
     </ul>
@@ -81,6 +82,14 @@ export default {
           .then(() => console.log('deleted'))
           .catch((err) => console.log(err));
       }
+    },
+    onEdit(value, id) {
+      firestore
+        .collection('products')
+        .doc(id)
+        .update(value)
+        .then(() => console.log('edited'))
+        .catch((err) => console.log(err));
     },
   },
 };
