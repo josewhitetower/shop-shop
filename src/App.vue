@@ -1,8 +1,8 @@
 <template>
-  <div class="container mx-auto text-gray-800 flex flex-col items-center my-12">
-    <h1 class="text-2xl mb-4">Shop-Shop</h1>
+  <div class="max-w-2xl mx-auto text-gray-800 my-12 px-4">
+    <h1 class="text-2xl mb-4 text-center">Shop-Shop</h1>
     <ul class="">
-      <li v-for="product in boughtProducts" :key="product.id" class="flex my-4">
+      <li v-for="product in boughtProducts" :key="product.id" class="flex my-2">
         <Product
           :product="product"
           @toggleBought="() => onToggleBought(product.id, product.bought)"
@@ -10,10 +10,10 @@
           @edit="(value) => onEdit(value, product.id)"
         />
       </li>
-      <li v-if="visible" class="my-4">
+      <li v-if="visible" class="my-2">
         <ProductForm @add="(value) => onAdd(value)" @delete="visible = false" />
       </li>
-      <li v-else class="my-4">
+      <li v-else class="my-2">
         <span class="flex cursor-pointer" @click="visible = true">
           <v-icon name="plus" class="h-6 w-6 mr-2"></v-icon>
           Product

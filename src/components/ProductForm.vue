@@ -3,9 +3,9 @@
     <span @click="bought = !bought">
       <v-icon :name="isBought" class="h-6 w-6 mr-2 cursor-pointer" />
     </span>
-    <div class="flex-col flex">
-      <input type="text" v-model="name" required placeholder="Name" class="focus:outline-none"/>
-      <input type="text" v-model="amount" placeholder="Amount" class="focus:outline-none"/>
+    <div class="flex-col flex w-full">
+      <textarea v-model="name" required placeholder="Name" class="focus:outline-none resize-none" ref="name" @input="resizeTextArea"/>
+      <textarea v-model="amount" placeholder="Amount" class="focus:outline-none resize-none" ref="description" @input="resizeTextArea"/>
     </div>
 
     <span @click="addProduct">
@@ -43,6 +43,11 @@ export default {
       } else {
           alert('Name is required!')
       }
+    },
+    resizeTextArea(e) {
+      const target = this.$refs[e.target.name];
+      target.style = 'height:auto; padding:0';
+      target.style = 'height:' + target.scrollHeight + 'px';
     },
   },
 };
