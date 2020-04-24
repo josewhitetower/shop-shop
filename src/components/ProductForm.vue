@@ -4,8 +4,8 @@
       <v-icon :name="isBought" class="h-6 w-6 mr-2 cursor-pointer" />
     </span>
     <div class="flex-col flex w-full">
-      <textarea v-model="name" required placeholder="Name" class="focus:outline-none resize-none" ref="name" @input="resizeTextArea"/>
-      <textarea v-model="amount" placeholder="Amount" class="focus:outline-none resize-none" ref="description" @input="resizeTextArea"/>
+      <textarea v-model="name" required placeholder="Name" class="focus:outline-none resize-none" ref="name" name="name" @input="resizeTextArea"/>
+      <textarea v-model="amount" placeholder="Amount" class="focus:outline-none resize-none" ref="description" name="description" @input="resizeTextArea"/>
     </div>
 
     <span @click="addProduct">
