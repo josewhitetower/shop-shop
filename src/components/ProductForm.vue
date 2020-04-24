@@ -12,7 +12,7 @@
       <v-icon name="plus" class="h-6 w-6 mr-2 cursor-pointer" />
     </span>
     <span @click="$emit('delete')">
-      <v-icon name="trash" class="h-6 w-6 mr-2 cursor-pointer" />
+      <v-icon name="x" class="h-6 w-6 mr-2 cursor-pointer" />
     </span>
   </div>
 </template>
